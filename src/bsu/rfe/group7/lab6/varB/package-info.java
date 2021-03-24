@@ -1,0 +1,1 @@
+package bsu.rfe.group7.lab6.varB;
