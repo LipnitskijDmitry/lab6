@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -17,6 +18,7 @@ public class MainFrame extends JFrame {
 
 	private JMenuItem pauseMenuItem;
 	private JMenuItem resumeMenuItem;
+	private JMenuItem magnetismMenuItem;
 	
 	private Field field = new Field();
 
@@ -34,11 +36,12 @@ public class MainFrame extends JFrame {
 		JMenu magnetism = new JMenu("Магнетизм");
 		Action onMagnetism = new AbstractAction("Добавить магнетизм") {
 			public void actionPerformed(ActionEvent event) {
-				field.magnetismOn();
+				field.isMagnetismOn(magnetismMenuItem.isSelected());
 			}
 		};
 		menuBar.add(magnetism);
-		magnetism.add(onMagnetism);
+		magnetismMenuItem = new JCheckBoxMenuItem(onMagnetism);
+		magnetism.add(magnetismMenuItem);
 		
 		JMenu ballMenu = new JMenu("Мячи");
 		Action addBallAction = new AbstractAction("Добавить мяч") {
