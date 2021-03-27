@@ -45,7 +45,7 @@ public class Field extends JPanel {
 		paused = true;
 	}
 	
-	public synchronized void isMagnetismOn( boolean b ) {
+	public void setMagnetism( boolean b ) {
 		magnetism = b;
 	}
 

@@ -33,16 +33,6 @@ public class MainFrame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu magnetism = new JMenu("Магнетизм");
-		Action onMagnetism = new AbstractAction("Добавить магнетизм") {
-			public void actionPerformed(ActionEvent event) {
-				field.isMagnetismOn(magnetismMenuItem.isSelected());
-			}
-		};
-		menuBar.add(magnetism);
-		magnetismMenuItem = new JCheckBoxMenuItem(onMagnetism);
-		magnetism.add(magnetismMenuItem);
-		
 		JMenu ballMenu = new JMenu("Мячи");
 		Action addBallAction = new AbstractAction("Добавить мяч") {
 			public void actionPerformed(ActionEvent event) {
@@ -61,7 +51,9 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				field.pause();
 				pauseMenuItem.setEnabled(false);
-				resumeMenuItem.setEnabled(true);
+				if(!magnetismMenuItem.isSelected()) {
+					resumeMenuItem.setEnabled(true);
+				}
 			}
 		};
 		
@@ -76,6 +68,23 @@ public class MainFrame extends JFrame {
 		};
 		resumeMenuItem = controlMenu.add(resumeAction);
 		resumeMenuItem.setEnabled(false);
+		
+		JMenu magnetism = new JMenu("Магнетизм");
+		Action onMagnetism = new AbstractAction("Добавить магнетизм") {
+			public void actionPerformed(ActionEvent event) {
+				field.setMagnetism(magnetismMenuItem.isSelected());
+				
+				if(!magnetismMenuItem.isSelected() && pauseMenuItem.isEnabled()) {
+					field.resume();
+				}
+				if(!magnetismMenuItem.isSelected() && !pauseMenuItem.isEnabled()) {
+					resumeMenuItem.setEnabled(true);
+				}
+			}
+		};
+		menuBar.add(magnetism);
+		magnetismMenuItem = new JCheckBoxMenuItem(onMagnetism);
+		magnetism.add(magnetismMenuItem);
 	
 		getContentPane().add(field, BorderLayout.CENTER);
 
