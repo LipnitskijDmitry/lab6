@@ -30,6 +30,16 @@ public class MainFrame extends JFrame {
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+		
+		JMenu magnetism = new JMenu("Магнетизм");
+		Action onMagnetism = new AbstractAction("Добавить магнетизм") {
+			public void actionPerformed(ActionEvent event) {
+				field.magnetismOn();
+			}
+		};
+		menuBar.add(magnetism);
+		magnetism.add(onMagnetism);
+		
 		JMenu ballMenu = new JMenu("Мячи");
 		Action addBallAction = new AbstractAction("Добавить мяч") {
 			public void actionPerformed(ActionEvent event) {

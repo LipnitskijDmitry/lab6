@@ -13,6 +13,7 @@ import javax.swing.Timer;
 public class Field extends JPanel {
 
 	private boolean paused;
+	private boolean magnetism=false;
 	
 	private ArrayList<BouncingBalls> balls = new ArrayList<BouncingBalls>(10);
 
@@ -43,6 +44,10 @@ public class Field extends JPanel {
 	public synchronized void pause() {
 		paused = true;
 	}
+	
+	public synchronized void magnetismOn() {
+		magnetism = true;
+	}
 
 	public synchronized void resume() {
 		paused = false;
@@ -50,7 +55,7 @@ public class Field extends JPanel {
 	}
 
 	public synchronized void canMove(BouncingBalls ball) throws InterruptedException {
-		if (paused) {
+		if ((paused)||(magnetism && ball.isLocked())) {
 			wait();
 		}
 	}

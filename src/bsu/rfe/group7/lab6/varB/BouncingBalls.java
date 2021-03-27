@@ -11,6 +11,8 @@ public class BouncingBalls implements Runnable {
 	private Field field;
 	private int radius;
 	private Color color;
+	
+	private boolean block=false;
 
 	private double x;
 	private double y;
@@ -43,6 +45,10 @@ public class BouncingBalls implements Runnable {
 	Thread thisThread = new Thread(this);
 	thisThread.start();
 	}
+	
+	public boolean isLocked() {
+		return block;
+	}
 
 	public void run() {
 		try {
@@ -54,25 +60,30 @@ public class BouncingBalls implements Runnable {
 			
 					speedX = -speedX;
 					x = radius;
+					block = true;
 				} else
 				if (x + speedX >= field.getWidth() - radius) {
 			
 					 speedX = -speedX;
 					 x=new Double(field.getWidth()-radius).intValue();
+					 block = true;
 				} else
 				if (y + speedY <= radius) {
 			
 					speedY = -speedY;
 					y = radius;
+					block = true;
 				} else
 				if (y + speedY >= field.getHeight() - radius) {
 			
 					 speedY = -speedY;
 					 y=new Double(field.getHeight()-radius).intValue();
+					 block = true;
 				} else {
 			
 					x += speedX;
 					y += speedY;
+					block = false;
 				}
 				
 				Thread.sleep(16-speed);
